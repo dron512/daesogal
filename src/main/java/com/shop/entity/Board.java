@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @ToString
-public class Board {
+public class Board extends BaseEntity{
 
     public Board() {
     }

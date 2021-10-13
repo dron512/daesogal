@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString(exclude = "board")
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class BoardTail {
+public class BoardTail extends BaseEntity{
     @Id
     @Column(name = "boardtail_id")
     @GeneratedValue(strategy = GenerationType.AUTO)

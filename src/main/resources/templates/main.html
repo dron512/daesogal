@@ -39,91 +39,88 @@
 </th:block>
 
 <div layout:fragment="content">
-    <div class="m-3">
-        <div class="row">
-            <div class="col-md-3">
-                <select class="form-select" id="city" onchange="drawGra()">
-                    <option value='서울'>서울</option>
-                    <option value='경기'>경기</option>
-                    <option value='부산'>부산</option>
-                    <option value='대구'>대구</option>
-                    <option value='인천'>인천</option>
-                    <option value='경남'>경남</option>
-                    <option value='충남'>충남</option>
-                    <option value='경북'>경북</option>
-                    <option value='대전'>대전</option>
-                    <option value='강원'>강원</option>
-                    <option value='충북'>충북</option>
-                    <option value='울산'>울산</option>
-                    <option value='광주'>광주</option>
-                    <option value='전북'>전북</option>
-                    <option value='전남'>전남</option>
-                    <option value='제주'>제주</option>
-                    <option value='세종'>세종</option>
-                </select>
-            </div>
-            <div class="col-md-3 p1">
-                <span><small>도시를 선택 하세요</small></span>
-            </div>
-        </div>
-        <div class="m-2" id="citytotal">누적 확진자 수 : </div>
-        <div class="row">
-            <div class="col-xl-8" id="my_dataviz"></div>
-            <div class="col-xl-4">
-                <h3>최근 확진자수</h3>
-                <table class="table" id="covid-tb">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">일자</th>
-                            <th scope="col">확진자수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>20211001</td>
-                            <td>2400</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>20210931</td>
-                            <td>2400</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>20210930</td>
-                            <td>2400</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>20210929</td>
-                            <td>2400</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>20210928</td>
-                            <td>2400</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>20210927</td>
-                            <td>2400</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td>20210926</td>
-                            <td>2400</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
     <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active item">
-                <!--                <div id="my_dataviz"></div>-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <select class="form-select" id="city" onchange="drawGra()">
+                            <option value='서울'>서울</option>
+                            <option value='경기'>경기</option>
+                            <option value='부산'>부산</option>
+                            <option value='대구'>대구</option>
+                            <option value='인천'>인천</option>
+                            <option value='경남'>경남</option>
+                            <option value='충남'>충남</option>
+                            <option value='경북'>경북</option>
+                            <option value='대전'>대전</option>
+                            <option value='강원'>강원</option>
+                            <option value='충북'>충북</option>
+                            <option value='울산'>울산</option>
+                            <option value='광주'>광주</option>
+                            <option value='전북'>전북</option>
+                            <option value='전남'>전남</option>
+                            <option value='제주'>제주</option>
+                            <option value='세종'>세종</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 p1">
+                        <span><small>도시를 선택 하세요</small></span>
+                    </div>
+                </div>
+                <div class="m-2" id="citytotal">누적 확진자 수 : </div>
+                <div class="row">
+                    <div class="col-xl-8" id="my_dataviz"></div>
+                    <div class="col-xl-4">
+                        <h3>최근 확진자수</h3>
+                        <table class="table" id="covid-tb">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">일자</th>
+                                <th scope="col">확진자수</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>20211001</td>
+                                <td>2400</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>20210931</td>
+                                <td>2400</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>20210930</td>
+                                <td>2400</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>20210929</td>
+                                <td>2400</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>20210928</td>
+                                <td>2400</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td>20210927</td>
+                                <td>2400</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td>20210926</td>
+                                <td>2400</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 http://openapi.q-net.or.kr/api/service/rest/InquiryStatSVC/getTotExamList?baseYY=2017&ServiceKey=SkQfvp71%2F%2FZKk9K%2BV%2FcmIJnE6i4gVLB7eSipxEZ1VBZHnDfCsfHm2U50AnScbZRI6OAMmiNyNRyEv3oign3FKw%3D%3D
 
                 http://openapi.q-net.or.kr/api/
@@ -131,6 +128,9 @@
                 SkQfvp71%2F%2FZKk9K%2BV%2FcmIJnE6i4gVLB7eSipxEZ1VBZHnDfCsfHm2U50AnScbZRI6OAMmiNyNRyEv3oign3FKw%3D%3D
                 일반인증키(디코딩)
                 SkQfvp71//ZKk9K+V/cmIJnE6i4gVLB7eSipxEZ1VBZHnDfCsfHm2U50AnScbZRI6OAMmiNyNRyEv3oign3FKw==
+            </div>
+            <div class="carousel-item item">
+                테스트
             </div>
         </div>
     </div>
@@ -145,7 +145,7 @@
             <div class="col-md-4 margin">
                 <div class="card">
                     <a th:href="'/item/' +${item.id}" class="text-dark">
-                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="150">
                         <div class="card-body">
                             <h4 class="card-title">[[${item.itemNm}]]</h4>
                             <p class="card-text">[[${item.itemDetail}]]</p>
@@ -203,7 +203,7 @@
                     "translate(" + margin.left + "," + margin.top + ")");
 
             //Read the data
-            d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+            d3.csv("http://localhost/csv/inuds.csv",
 
                 // When reading the csv, I must format variables:
                 function (d) {
