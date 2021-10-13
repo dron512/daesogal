@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<div xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout1}">
+
+  <!-- 사용자 CSS 추가 -->
+  <th:block layout:fragment="css">
+    <style>
+
+    </style>
+  </th:block>
+
+  <div layout:fragment="content">
+
+    <main class="container">
+      <div class="bg-light p-5 rounded">
+        <h1>게시판</h1>
+      </div>
+    </main>
+
+    <div class="container p-5 rounded">
+      <form th:action="@{/board/form}" method="post" th:object="${board}">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="mb-3">
+          <label for="title" class="form-label">제목</label>
+          <input type="text" name="title" class="form-control" id="title" th:field="*{title}">
+          <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+            title hasErrors
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">내용</label>
+          <textarea class="form-control" name="content" id="content" th:field="*{content}"></textarea>
+          <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
+          </div>
+        </div>
+        <a th:href="@{/board/list}" class="btn btn-primary">취소</a>
+        <button type="submit" class="btn btn-primary">저장</button>
+      </form>
+    </div>
+</div>
