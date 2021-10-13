@@ -52,7 +52,7 @@
           </li>
           <li class="page-item" th:each="i : ${#numbers.sequence(startpage,endpage)}"
             th:classappend="${curpage==i} ?'active'">
-            <a class="page-link" th:text="${i}" th:href="@{/board/list(page=${i-1})}" href="#">
+            <a th:if="${i != 0}" class="page-link" th:text="${i}" th:href="@{/board/list(page=${i-1})}" href="#">
             </a>
           </li>
           <li class="page-item" th:classappend="${curpage==endpage} ?'disabled'">
