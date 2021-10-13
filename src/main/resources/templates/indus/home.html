@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .carousel-inner > .item {
+            height: 430px;
+        }
+        .margin{
+            margin-bottom:30px;
+        }
+        .banner{
+            height: 300px;
+            position: absolute; top:0; left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .card-text{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        a:hover{
+            text-decoration:none;
+        }
+        .center{
+            text-align:center;
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+
+    <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active item">
+                <div id="my_dataviz"></div>
+                http://openapi.q-net.or.kr/api/service/rest/InquiryStatSVC/getTotExamList?baseYY=2017&ServiceKey=SkQfvp71%2F%2FZKk9K%2BV%2FcmIJnE6i4gVLB7eSipxEZ1VBZHnDfCsfHm2U50AnScbZRI6OAMmiNyNRyEv3oign3FKw%3D%3D
+
+                http://openapi.q-net.or.kr/api/
+                일반인증키(인코딩)
+                SkQfvp71%2F%2FZKk9K%2BV%2FcmIJnE6i4gVLB7eSipxEZ1VBZHnDfCsfHm2U50AnScbZRI6OAMmiNyNRyEv3oign3FKw%3D%3D
+                일반인증키(디코딩)
+                SkQfvp71//ZKk9K+V/cmIJnE6i4gVLB7eSipxEZ1VBZHnDfCsfHm2U50AnScbZRI6OAMmiNyNRyEv3oign3FKw==
+            </div>
+        </div>
+    </div>
+
+</div>
+<th:block layout:fragment="script">
+<script>
+$('document').ready(function(){
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 30, bottom: 30, left: 50},
+        width = 920 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#my_dataviz")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+
+    //Read the data
+    d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
+
+      // When reading the csv, I must format variables:
+      function(d){
+        return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
+      },
+
+      // Now I can use this dataset:
+      function(data) {
+
+        // Add X axis --> it is a date format
+        var x = d3.scaleTime()
+          .domain(d3.extent(data, function(d) { return d.date; }))
+          .range([ 0, width ]);
+        svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+          .domain([0, d3.max(data, function(d) { return +d.value; })])
+          .range([ height, 0 ]);
+        svg.append("g")
+          .call(d3.axisLeft(y));
+
+        // Add the area
+        svg.append("path")
+          .datum(data)
+          .attr("fill", "#cce5df")
+          .attr("stroke", "#69b3a2")
+          .attr("stroke-width", 1.5)
+          .attr("d", d3.area()
+            .x(function(d) { return x(d.date) })
+            .y0(y(0))
+            .y1(function(d) { return y(d.value) })
+            )
+
+    // Handmade legend
+        svg.append("circle").attr("cx",600).attr("cy",30).attr("r", 6).style("fill", "#69b3a2")
+        svg.append("text").attr("x", 620).attr("y", 30).text("variable A").style("font-size", "15px").attr("alignment-baseline","middle")
+
+    })
+});
+</script>
+</th:block>
