@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CertRepository extends JpaRepository<Cert, Long> {
 
-    @Query(value = "select a.cert_name, a.take_year, sum(take_number) as take_numbers from cert a " +
+    @Query(value = "select a.take_year, sum(take_number) as take_numbers from cert a " +
             "group by cert_name, take_year " +
             "having cert_name = :cert_name " +
             "order by cert_name", nativeQuery = true)

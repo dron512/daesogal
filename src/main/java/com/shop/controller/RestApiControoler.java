@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class RestApiControoler {
     CertRepository certRepository;
 
     @GetMapping("certname")
-    public List<CertCity> city(String city) throws JsonProcessingException {
-        return certRepository.myquerycert_name("전기기사");
+    public List<CertCity> city(@RequestParam(defaultValue = "정보처리기사") String certname) throws JsonProcessingException {
+        return certRepository.myquerycert_name(certname);
     }
 }

@@ -11,36 +11,106 @@
     <!DOCTYPE html>
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
-    <!-- Create a div where the graph will take place -->
-    <div id="my_dataviz"></div>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+    *{
+        font-family: 'Black Han Sans', sans-serif;
+    }
+    </style>
     <style>
         body {
-            background: rgb(70, 12, 216);
-            background: linear-gradient(90deg, rgb(13, 3, 189) 0%, rgba(221, 15, 147, 0.6421919109440651) 100%, rgba(0, 212, 255, 1) 100%);
+            background: rgb(150, 12, 216);
+            background: linear-gradient(90deg, rgb(150, 3, 189) 0%, rgba(221, 15, 147, 0.6421919109440651) 100%, rgba(0, 212, 255, 1) 100%);
         }
     </style>
 </head>
 
-<body>
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <div id="my_dataviz"></div>
-            </div>
-            <div class="carousel-item">
-                asdf
-            </div>
-            <div class="carousel-item">
-                aaaaaaaaaaa
+<body class="text-white" style="width: 95%; height: 95%;">
+    <div class="row justify-content-center mt-3">
+        <div class="col-sm-10">
+            <div class="display-4" id="title">
+                정보처리기사 누적 취득자 수 :
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div id="my_dataviz"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">2014</th>
+                            <th scope="col">2015</th>
+                            <th scope="col">2016</th>
+                            <th scope="col">2017</th>
+                            <th scope="col">2018</th>
+                            <th scope="col">2019</th>
+                            <th scope="col">2020</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td id="v2014">Mark</td>
+                            <td id="v2015">Otto</td>
+                            <td id="v2016">@mdo</td>
+                            <td id="v2017">@mdo</td>
+                            <td id="v2018">@mdo</td>
+                            <td id="v2019">@mdo</td>
+                            <td id="v2020">@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-1">
+                <select id="certname"" class="form-select" onchange="doGraph()">
+                    <option selected>자격증선택</option>
+                    <option value="정보처리기사">정보처리기사</option>
+                    <option value="정보처리산업기사">정보처리산업기사</option>
+                    <option value="정보처리기능사">정보처리기능사</option>
+                    <option value="전기기사">전기기사</option>
+                    <option value="전기산업기사">전기산업기사</option>
+                    <option value="전기기능사">전기기능사</option>
+                    <option value="전자기사">전자기사</option>
+                    <option value="전자산업기사">전자산업기사</option>
+                    <option value="전자기능사">전자기능사</option>
+                    <option value="소방설비기사(기계분야)">소방설비기사(기계분야)</option>
+                    <option value="소방설비기사(전기분야)">소방설비기사(전기분야)</option>
+                    <option value="소방설비산업기사(기계분야)">소방설비산업기사(기계분야)</option>
+                    <option value="정보관리기술사">정보관리기술사</option>
+                    <option value="건축전기설비기술사">건축전기설비기술사</option>
+                    <option value="소방기술사">소방기술사</option>
+                    <option value="가스기술사">가스기술사</option>
+                </select>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-12">
+                <div id="carouselExampleControls" class="carousel slide text-white mt-3 ml-2" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="display-4 carousel-item active">
+                            2014~2020년 자격증 취득통계입니다.
+                        </div>
+                        <div class="display-4 carousel-item">
+                            추후더 많은 자료를 보여줄 예정입니다.
+                        </div>
+                        <div class="display-4 carousel-item">
+                            소프트웨어고 ISR 팀
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>자료는 https://www.data.go.kr/data/15088896/fileData.do 참고했습니다.</div>
+    </div>
+
 </body>
 
 </html>
@@ -56,79 +126,131 @@
 
 <script>
 
-    // set the dimensions and margins of the graph
-    var margin = { top: 10, right: 30, bottom: 30, left: 40 },
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    function doGraph(){
+        var svg = d3.select("svg").remove();
 
-    // append the svg object to the body of the page
-    var svg = d3.select("#my_dataviz")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+        var langSelect = document.getElementById("certname"); 
+        // select element에서 선택된 option의 value가 저장된다. 
+        var selectValue = langSelect.options[langSelect.selectedIndex].value; 
+        console.log('selectvalue = '+selectValue);
+        // select element에서 선택된 option의 text가 저장된다.
+        var selectText = langSelect.options[langSelect.selectedIndex].text;
+        var url="http://localhost/cert/certname";
+        var cert_name ="정보처리기사";
+        if (selectValue !='자격증선택'){
+            url = "http://localhost/cert/certname?certname="+selectValue;
+            cert_name = selectValue;
+        }
 
-    // get the data
-    d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_doubleHist.csv", function (data) {
+        // set the dimensions and margins of the graph
+        var margin = { top: 30, right: 30, bottom: 70, left: 60 },
+            width = 1200 - margin.left - margin.right,
+            height = 420 - margin.top - margin.bottom;
 
-        // X axis: scale and draw:
-        var x = d3.scaleLinear()
-            .domain([-4, 9])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
-            .range([0, width]);
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+        // append the svg object to the body of the page
+        var svg = d3.select("#my_dataviz")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
 
-        // set the parameters for the histogram
-        var histogram = d3.histogram()
-            .value(function (d) { return +d.value; })   // I need to give the vector of value
-            .domain(x.domain())  // then the domain of the graphic
-            .thresholds(x.ticks(40)); // then the numbers of bins
+        // Parse the Data
+        d3.json(url, function (data) {
 
-        // And apply twice this function to data to get the bins.
-        var bins1 = histogram(data.filter(function (d) { return d.type === "variable 1" }));
-        var bins2 = histogram(data.filter(function (d) { return d.type === "variable 2" }));
+            // sort data
+            // data.sort(function (d) {
+            //     return d.take_numbers;
+            // });
 
-        // Y axis: scale and draw:
-        var y = d3.scaleLinear()
-            .range([height, 0]);
-        y.domain([0, d3.max(bins1, function (d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
-        svg.append("g")
-            .call(d3.axisLeft(y));
+            var total = 0;
+            var year = 2014;
+            var height_value = 0;
+            var sum_take_numbers = 0;
+            data.map(function (d) {
+                $("#v" + year).text(d.take_numbers);
+                total += d.take_numbers;
+                year++;
+                if (height_value < d.take_numbers)
+                    height_value = d.take_numbers;
+                sum_take_numbers += d.take_numbers;
+            })
+            height_value += (sum_take_numbers/8)/2;
+            console.log('total', total);
 
-        // append the bars for series 1
-        svg.selectAll("rect")
-            .data(bins1)
-            .enter()
-            .append("rect")
-            .attr("x", 1)
-            .attr("transform", function (d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-            .attr("width", function (d) { return x(d.x1) - x(d.x0) - 1; })
-            .attr("height", function (d) { return height - y(d.length); })
-            .style("fill", "#69b3a2")
-            .style("opacity", 0.6)
+            // X axis
+            var x = d3.scaleBand()
+                .range([0, width])
+                .domain(data.map(function (d) { return d.take_year; }))
+                .padding(0.2);
 
-        // append the bars for series 2
-        svg.selectAll("rect2")
-            .data(bins2)
-            .enter()
-            .append("rect")
-            .attr("x", 1)
-            .attr("transform", function (d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-            .attr("width", function (d) { return x(d.x1) - x(d.x0) - 1; })
-            .attr("height", function (d) { return height - y(d.length); })
-            .style("fill", "#404080")
-            .style("opacity", 0.6)
+            svg.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x))
+                .selectAll("text")
+                .attr("transform", "translate(-10,0)rotate(-45)")
+                .style("text-anchor", "end");
 
-        // Handmade legend
-        svg.append("circle").attr("cx", 300).attr("cy", 30).attr("r", 6).style("fill", "#69b3a2")
-        svg.append("circle").attr("cx", 300).attr("cy", 60).attr("r", 6).style("fill", "#404080")
-        svg.append("text").attr("x", 320).attr("y", 30).text("variable A").style("font-size", "15px").attr("alignment-baseline", "middle")
-        svg.append("text").attr("x", 320).attr("y", 60).text("variable B").style("font-size", "15px").attr("alignment-baseline", "middle")
+            // Add Y axis
+            var y = d3.scaleLinear()
+                .domain([0, height_value])
+                .range([height, 0]);
 
-    });
+            svg.append("g")
+                .call(d3.axisLeft(y));
+
+            var tooltip = d3.select("#my_dataviz")
+                .append("div")
+                .style("opacity", 0)
+                .attr("class", "tooltip")
+                .style("background-color", "black")
+                .style("color", "white")
+                .style("border-radius", "5px")
+                .style("padding", "10px")
+
+            var showTooltip = function (d) {
+                tooltip
+                    .transition()
+                    .duration(100)
+                    .style("opacity", 1)
+                tooltip
+                    .html("취득 년도 : " + d.take_year + "년 취득자 수 " + d.take_numbers+" 명")
+                    .style("left", (d3.mouse(this)[0] + 20) + "px")
+                    .style("top", (d3.mouse(this)[1]) + "px")
+            }
+            var moveTooltip = function (d) {
+                tooltip
+                    .style("left", (d3.mouse(this)[0] + 20) + "px")
+                    .style("top", (d3.mouse(this)[1]) + "px")
+            }
+            // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+            var hideTooltip = function (d) {
+                tooltip
+                    .transition()
+                    .duration(100)
+                    .style("opacity", 0)
+            }
+
+            var mycolors = ["#69b3a2", "steelblue", "#ccebc5", "rgb(12,240,233)", "slateblue", "#8dd3c7", "#bebada", "#80b1d3"]
+            // Bars
+            svg.selectAll("mybar")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("x", function (d) { return x(d.take_year); })
+                .attr("y", function (d) { return y(d.take_numbers); })
+                .attr("width", x.bandwidth())
+                .attr("height", function (d) { return height - y(d.take_numbers); })
+                .attr("fill", function (d, i) { return mycolors[i]; })
+                .on("mouseover", showTooltip)
+                .on("mousemove", moveTooltip)
+                .on("mouseleave", hideTooltip)
+
+            $('#title').text(cert_name+' 누적 취득자 수 : ' + total + " 명");
+        })
+    }
+    doGraph();
 </script>
 <script>
     $(function () {
@@ -136,7 +258,7 @@
         $('#carouselExampleControls').carousel({
             // 슬리아딩 자동 순환 지연 시간
             // false면 자동 순환하지 않는다.
-            interval: 1000,
+            interval: 3000,
             // hover를 설정하면 마우스를 가져대면 자동 순환이 멈춘다.
             pause: "hover",
             // 순환 설정, true면 1 -> 2가면 다시 1로 돌아가서 반복
