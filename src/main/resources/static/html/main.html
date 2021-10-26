@@ -38,30 +38,30 @@
             <div id="my_dataviz"></div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">2014</th>
-                            <th scope="col">2015</th>
-                            <th scope="col">2016</th>
-                            <th scope="col">2017</th>
-                            <th scope="col">2018</th>
-                            <th scope="col">2019</th>
-                            <th scope="col">2020</th>
+                            <th scope="col"> 년도 </th>
+                            <th scope="col"> 2014 년</th>
+                            <th scope="col"> 2015 년</th>
+                            <th scope="col"> 2016 년</th>
+                            <th scope="col"> 2017 년</th>
+                            <th scope="col"> 2018 년</th>
+                            <th scope="col"> 2019 년</th>
+                            <th scope="col"> 2020 년</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td id="v2014">Mark</td>
-                            <td id="v2015">Otto</td>
-                            <td id="v2016">@mdo</td>
-                            <td id="v2017">@mdo</td>
-                            <td id="v2018">@mdo</td>
-                            <td id="v2019">@mdo</td>
-                            <td id="v2020">@mdo</td>
+                            <th scope="row">합격자</th>
+                            <td id="v2014">0</td>
+                            <td id="v2015">0</td>
+                            <td id="v2016">0</td>
+                            <td id="v2017">0</td>
+                            <td id="v2018">0</td>
+                            <td id="v2019">0</td>
+                            <td id="v2020">0</td>
                         </tr>
                     </tbody>
                 </table>
@@ -71,16 +71,27 @@
         <div class="row">
             <div class="col-sm-1">
                 <select id="certname"" class="form-select" onchange="doGraph()">
-                    <option selected>자격증선택</option>
-                    <option value="정보처리기사">정보처리기사</option>
+                    <option selected value="정보처리기사">정보처리기사</option>
                     <option value="정보처리산업기사">정보처리산업기사</option>
                     <option value="정보처리기능사">정보처리기능사</option>
                     <option value="전기기사">전기기사</option>
                     <option value="전기산업기사">전기산업기사</option>
+                    <option value="전기공사기사">전기공사기사</option>
+                    <option value="전기공사산업기사">전기공사산업기사</option>
+
+                    <option value="전기기능장">전기기능장</option>
+                    
                     <option value="전기기능사">전기기능사</option>
                     <option value="전자기사">전자기사</option>
                     <option value="전자산업기사">전자산업기사</option>
-                    <option value="전자기능사">전자기능사</option>
+                    <option value="전자계산기기사">전자계산기기사</option>
+                    <option value="전자계산기제어산업기사">전자계산기제어산업기사</option>
+                    <option value="전자계산기기능사">전자계산기기능사</option>
+                    <option value="전자기기기능사">전자기기기능사</option>
+
+                    <option value="산업안전기사">산업안전기사</option>
+                    <option value="화공기사">화공기사</option>
+
                     <option value="소방설비기사(기계분야)">소방설비기사(기계분야)</option>
                     <option value="소방설비기사(전기분야)">소방설비기사(전기분야)</option>
                     <option value="소방설비산업기사(기계분야)">소방설비산업기사(기계분야)</option>
@@ -88,6 +99,8 @@
                     <option value="건축전기설비기술사">건축전기설비기술사</option>
                     <option value="소방기술사">소방기술사</option>
                     <option value="가스기술사">가스기술사</option>
+
+                    <option value="전기안전기술사">전기안전기술사</option>
                 </select>
             </div>
         </div>
@@ -137,7 +150,7 @@
         var selectText = langSelect.options[langSelect.selectedIndex].text;
         var url="http://localhost/cert/certname";
         var cert_name ="정보처리기사";
-        if (selectValue !='자격증선택'){
+        if (selectValue !=''){
             url = "http://localhost/cert/certname?certname="+selectValue;
             cert_name = selectValue;
         }
@@ -145,7 +158,7 @@
         // set the dimensions and margins of the graph
         var margin = { top: 30, right: 30, bottom: 70, left: 60 },
             width = 1200 - margin.left - margin.right,
-            height = 420 - margin.top - margin.bottom;
+            height = 450 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         var svg = d3.select("#my_dataviz")
@@ -169,7 +182,7 @@
             var height_value = 0;
             var sum_take_numbers = 0;
             data.map(function (d) {
-                $("#v" + year).text(d.take_numbers);
+                $("#v" + year).text(d.take_numbers.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+" 명");
                 total += d.take_numbers;
                 year++;
                 if (height_value < d.take_numbers)
@@ -177,7 +190,6 @@
                 sum_take_numbers += d.take_numbers;
             })
             height_value += (sum_take_numbers/8)/2;
-            console.log('total', total);
 
             // X axis
             var x = d3.scaleBand()
@@ -246,8 +258,7 @@
                 .on("mouseover", showTooltip)
                 .on("mousemove", moveTooltip)
                 .on("mouseleave", hideTooltip)
-
-            $('#title').text(cert_name+' 누적 취득자 수 : ' + total + " 명");
+            $('#title').text(cert_name+' 누적 취득자 수 : ' + total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 명");
         })
     }
     doGraph();
